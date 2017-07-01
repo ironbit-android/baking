@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Baking</string>
+
+    <!-- Web Resource | Recipe List -->
+    <string name="web_resource_recipe_list">https://go.udacity.com/android-baking-app-json</string>
 </resources>
+
