@@ -7,7 +7,7 @@
     android:layout_marginRight="@dimen/recyclerview_recipe_margin">
 
     <TextView
-        android:id="@+id/recyclerview_recipes_item"
+        android:id="@+id/recyclerview_baking_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -16,11 +16,11 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/recyclerview_recipe_height"
-        android:layout_toRightOf="@id/recyclerview_recipes_item"
+        android:layout_toRightOf="@id/recyclerview_baking_item"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/recyclerview_recipes_name"
+            android:id="@+id/recyclerview_baking_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -28,7 +28,7 @@
             tools:text="Pisco Sour" />
 
         <TextView
-            android:id="@+id/recyclerview_recipes_servings"
+            android:id="@+id/recyclerview_baking_servings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,7 +38,7 @@
 
 
     <ImageView
-        android:id="@+id/recyclerview_recipes_image"
+        android:id="@+id/recyclerview_baking_image"
         android:layout_width="@dimen/recipe_image_size"
         android:layout_height="@dimen/recipe_image_size"
         android:layout_alignParentRight="true"

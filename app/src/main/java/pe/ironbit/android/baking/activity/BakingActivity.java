@@ -20,9 +20,9 @@ import pe.ironbit.android.baking.loader.factory.WebRequestFactoryRecipeList;
 import pe.ironbit.android.baking.service.base.WebRequestService;
 import pe.ironbit.android.baking.service.request.WebRequestRecipeListService;
 import pe.ironbit.android.baking.util.ConfigUtil;
-import pe.ironbit.android.baking.view.recipe.RecipeAdapter;
+import pe.ironbit.android.baking.view.baking.BakingAdapter;
 
-public class RecipesActivity extends AppCompatActivity {
+public class BakingActivity extends AppCompatActivity {
     /**
      * Set value of 1 columns when orientation is portrait on phones.
      */
@@ -56,12 +56,12 @@ public class RecipesActivity extends AppCompatActivity {
     /**
      * Adapter for Recipe Activity.
      */
-    private RecipeAdapter recipeAdapter;
+    private BakingAdapter bakingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipes);
+        setContentView(R.layout.activity_baking);
 
         // init objects interactions.
         initEventObjects();
@@ -79,9 +79,9 @@ public class RecipesActivity extends AppCompatActivity {
     private void initEventObjects() {
         observer = new ConcreteObserver();
 
-        recipeAdapter = new RecipeAdapter();
+        bakingAdapter = new BakingAdapter();
 
-        observer.attach(recipeAdapter);
+        observer.attach(bakingAdapter);
     }
 
     /**
@@ -89,7 +89,7 @@ public class RecipesActivity extends AppCompatActivity {
      */
     private void initRecyclerView() {
         // get recyclerview object
-        RecyclerView recyclerView = ButterKnife.findById(this, R.id.activity_recipes_recyclerview);
+        RecyclerView recyclerView = ButterKnife.findById(this, R.id.activity_baking_recyclerview);
 
         // set number of columns for the recyclerview
         if (ConfigUtil.isDeviceTablet(this)) {
@@ -111,7 +111,7 @@ public class RecipesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // add adapter
-        recyclerView.setAdapter(recipeAdapter);
+        recyclerView.setAdapter(bakingAdapter);
     }
 
     /**

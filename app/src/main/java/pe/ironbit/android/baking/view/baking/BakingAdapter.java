@@ -1,4 +1,4 @@
-package pe.ironbit.android.baking.view.recipe;
+package pe.ironbit.android.baking.view.baking;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,27 +13,27 @@ import pe.ironbit.android.baking.R;
 import pe.ironbit.android.baking.event.base.BaseListener;
 import pe.ironbit.android.baking.model.recipe.RecipeData;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>
+public class BakingAdapter extends RecyclerView.Adapter<BakingViewHolder>
                            implements BaseListener {
 
     private List<RecipeData> list;
 
-    public RecipeAdapter() {
+    public BakingAdapter() {
         list = new ArrayList<>();
     }
 
     @Override
-    public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BakingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
 
-        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_recipes, parent, false);
-        RecipeViewHolder viewHolder = new RecipeViewHolder(view, context);
+        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_baking, parent, false);
+        BakingViewHolder viewHolder = new BakingViewHolder(view, context);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecipeViewHolder holder, int position) {
+    public void onBindViewHolder(BakingViewHolder holder, int position) {
         RecipeData data = list.get(position);
         holder.bind(data);
     }
