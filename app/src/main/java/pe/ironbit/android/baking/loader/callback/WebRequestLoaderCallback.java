@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import java.util.List;
 
-import pe.ironbit.android.baking.listener.base.BaseRecipeListener;
+import pe.ironbit.android.baking.event.base.BaseObserver;
 import pe.ironbit.android.baking.loader.factory.WebRequestFactory;
 
 /**
@@ -27,19 +27,19 @@ public class WebRequestLoaderCallback implements LoaderManager.LoaderCallbacks<L
     /**
      * Delegate object.
      */
-    private BaseRecipeListener listener;
+    private BaseObserver observer;
 
     /**
      * Unique constructor.
      *
      * @param context  Activity context.
      * @param factory  Factory for web request.
-     * @param listener Delegate listener.
+     * @param observer Observer object.
      */
-    public WebRequestLoaderCallback(Context context, WebRequestFactory factory, BaseRecipeListener listener) {
+    public WebRequestLoaderCallback(Context context, WebRequestFactory factory, BaseObserver observer) {
         this.context = context;
         this.factory = factory;
-        this.listener = listener;
+        this.observer = observer;
     }
 
     @Override
@@ -49,11 +49,13 @@ public class WebRequestLoaderCallback implements LoaderManager.LoaderCallbacks<L
 
     @Override
     public void onLoadFinished(Loader<List> loader, List data) {
-        listener.onRecipeListListener(data);
+        //listener.onRecipeListListener(data);
+        observer.notifyListener(data);
     }
 
     @Override
     public void onLoaderReset(Loader<List> loader) {
-        listener.onRecipeListListener(null);
+        //listener.onRecipeListListener(null);
+        observer.notifyListener(null);
     }
 }
