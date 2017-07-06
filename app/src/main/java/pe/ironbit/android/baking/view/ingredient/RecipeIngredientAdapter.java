@@ -1,0 +1,45 @@
+package pe.ironbit.android.baking.view.ingredient;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import java.util.List;
+
+import pe.ironbit.android.baking.R;
+import pe.ironbit.android.baking.event.base.BaseListener;
+import pe.ironbit.android.baking.model.ingredient.IngredientData;
+
+public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredientViewHolder>
+                               implements BaseListener {
+    private List<IngredientData> list;
+
+    @Override
+    public RecipeIngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+
+        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_ingredient, parent, false);
+        RecipeIngredientViewHolder viewHolder = new RecipeIngredientViewHolder(view);
+
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(RecipeIngredientViewHolder holder, int position) {
+        IngredientData data = list.get(position);
+        holder.bind(data, String.valueOf(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    @Override
+    public void update(Object object) {
+        list = (List<IngredientData>)object;
+        notifyDataSetChanged();
+    }
+}

@@ -1,6 +1,7 @@
 package pe.ironbit.android.baking.view.baking;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,38 +13,56 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pe.ironbit.android.baking.R;
+import pe.ironbit.android.baking.activity.RecipeActivity;
+import pe.ironbit.android.baking.contract.BakingContract;
 import pe.ironbit.android.baking.model.recipe.RecipeData;
+import pe.ironbit.android.baking.model.recipe.RecipeParcelable;
 
 public class BakingViewHolder extends RecyclerView.ViewHolder {
     private Context context;
 
+    private RecipeData recipeData;
+
     @BindView(R.id.recyclerview_baking_item)
-    TextView baking_item;
+    TextView bakingItem;
 
     @BindView(R.id.recyclerview_baking_name)
-    TextView baking_name;
+    TextView bakingName;
 
     @BindView(R.id.recyclerview_baking_servings)
-    TextView baking_servings;
+    TextView bakingServings;
 
     @BindView(R.id.recyclerview_baking_image)
-    ImageView baking_image;
+    ImageView bakingImage;
 
-    public BakingViewHolder(View itemView, Context context) {
+    public BakingViewHolder(View itemView, final Context context) {
         super(itemView);
 
+        this.context = context;
         ButterKnife.bind(this, itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, RecipeActivity.class);
+                RecipeParcelable recipeParcelable = new RecipeParcelable(recipeData);
+                intent.putExtra(BakingContract.BAKING_TO_RECIPE, recipeParcelable);
+                context.startActivity(intent);
+            }
+        });
     }
 
     public void bind(RecipeData data) {
-        baking_item.setText(String.valueOf(data.getId()));
+        recipeData = data;
 
-        baking_name.setText(data.getName());
+        bakingItem.setText(String.valueOf(data.getId()));
 
-        baking_servings.setText(String.valueOf(data.getServings()));
+        bakingName.setText(data.getName());
+
+        bakingServings.setText(String.valueOf(data.getServings()));
 
         if (!TextUtils.isEmpty(data.getImage())) {
-            Picasso.with(context).load(data.getImage()).into(baking_image);
+            Picasso.with(context).load(data.getImage()).into(bakingImage);
         }
     }
 }
