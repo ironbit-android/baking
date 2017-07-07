@@ -13,20 +13,13 @@ import pe.ironbit.android.baking.R;
 import pe.ironbit.android.baking.event.base.BaseListener;
 import pe.ironbit.android.baking.model.step.StepData;
 
-public class RecipeStepAdapter extends RecyclerView.Adapter<RecipeStepViewHolder>
-                               implements BaseListener {
-    Selector selector;
-
+public class RecipeStepAdapter extends RecyclerView.Adapter<RecipeStepViewHolder> {
     List<StepData> list;
 
-    public enum Selector {
-        LONG_DESCRIPTION,
-        SHORT_DESCRIPTION
-    }
+    BaseListener listener;
 
-    public RecipeStepAdapter(Selector selector) {
-        this.selector = selector;
-
+    public RecipeStepAdapter(BaseListener listener) {
+        this.listener = listener;
         list = new ArrayList<>();
     }
 
@@ -35,7 +28,7 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecipeStepViewHolder
         Context context = parent.getContext();
 
         View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_step, parent, false);
-        RecipeStepViewHolder viewHolder = new RecipeStepViewHolder(view);
+        RecipeStepViewHolder viewHolder = new RecipeStepViewHolder(view, listener);
 
         return viewHolder;
     }
@@ -44,11 +37,7 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecipeStepViewHolder
     public void onBindViewHolder(RecipeStepViewHolder holder, int position) {
         StepData data = list.get(position);
 
-        if (selector == Selector.LONG_DESCRIPTION) {
-            holder.bind(String.valueOf(position), data.getDescription());
-        } else {
-            holder.bind(String.valueOf(position), data.getShortDescription());
-        }
+        holder.bind(position, data.getShortDescription());
     }
 
     @Override
@@ -56,9 +45,8 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecipeStepViewHolder
         return list.size();
     }
 
-    @Override
-    public void update(Object object) {
-        list = (List<StepData>) object;
+    public void setList(List<StepData> list) {
+        this.list = list;
         notifyDataSetChanged();
     }
 }

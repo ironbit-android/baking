@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import pe.ironbit.android.baking.R;
-import pe.ironbit.android.baking.event.base.BaseListener;
 import pe.ironbit.android.baking.model.ingredient.IngredientData;
 
-public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredientViewHolder>
-                               implements BaseListener {
+public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredientViewHolder> {
     private List<IngredientData> list;
 
     @Override
@@ -37,9 +35,8 @@ public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredie
         return list.size();
     }
 
-    @Override
-    public void update(Object object) {
-        list = (List<IngredientData>)object;
+    public void setList(List<IngredientData> list) {
+        this.list = list;
         notifyDataSetChanged();
     }
 }

@@ -46,7 +46,7 @@ public class BakingViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 Intent intent = new Intent(context, RecipeActivity.class);
                 RecipeParcelable recipeParcelable = new RecipeParcelable(recipeData);
-                intent.putExtra(BakingContract.BAKING_TO_RECIPE, recipeParcelable);
+                intent.putExtra(BakingContract.BUNDLE_RECIPE_DATA_KEY, recipeParcelable);
                 context.startActivity(intent);
             }
         });

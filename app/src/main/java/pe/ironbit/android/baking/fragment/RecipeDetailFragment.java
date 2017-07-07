@@ -10,32 +10,37 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import pe.ironbit.android.baking.R;
-import pe.ironbit.android.baking.model.recipe.RecipeData;
+import pe.ironbit.android.baking.activity.RecipeActivity;
+import pe.ironbit.android.baking.controller.RecipeController;
 import pe.ironbit.android.baking.model.recipe.RecipeParcelable;
 import pe.ironbit.android.baking.view.ingredient.RecipeIngredientAdapter;
 import pe.ironbit.android.baking.view.step.RecipeStepAdapter;
 
 public class RecipeDetailFragment extends Fragment {
-    private RecipeData recipeData;
+    private RecipeParcelable recipeParcelable;
 
-    private static final String RECIPE_DATA_KEY = RecipeDetailFragment.class.getSimpleName();
+    private static final String RECIPE_DATA_KEY = "RECIPE_DATA_KEY";
 
     public RecipeDetailFragment() {
     }
 
     public static RecipeDetailFragment newInstance(RecipeParcelable recipeParcelable) {
-        RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(RECIPE_DATA_KEY, recipeParcelable);
+
+        RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(bundle);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            recipeData = ((RecipeParcelable)getArguments().getParcelable(RECIPE_DATA_KEY)).getRecipeData();
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            recipeParcelable = bundle.getParcelable(RECIPE_DATA_KEY);
         }
     }
 
@@ -56,8 +61,10 @@ public class RecipeDetailFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        RecipeStepAdapter adapter = new RecipeStepAdapter(RecipeStepAdapter.Selector.SHORT_DESCRIPTION);
-        adapter.update(recipeData.getSteps());
+        RecipeController controller = ((RecipeActivity)getActivity()).getRecipeController();
+
+        RecipeStepAdapter adapter = new RecipeStepAdapter(controller);
+        adapter.setList(recipeParcelable.getRecipeData().getSteps());
 
         recyclerView.setAdapter(adapter);
     }
@@ -69,7 +76,7 @@ public class RecipeDetailFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         RecipeIngredientAdapter adapter = new RecipeIngredientAdapter();
-        adapter.update(recipeData.getIngredients());
+        adapter.setList(recipeParcelable.getRecipeData().getIngredients());
 
         recyclerView.setAdapter(adapter);
     }
