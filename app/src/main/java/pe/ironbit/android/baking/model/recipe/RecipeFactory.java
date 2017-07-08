@@ -1,5 +1,6 @@
 package pe.ironbit.android.baking.model.recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pe.ironbit.android.baking.model.ingredient.IngredientData;
@@ -32,6 +33,6 @@ public class RecipeFactory {
                                               String image,
                                               List<StepData> steps,
                                               List<IngredientData> ingredients) {
-        return new RecipeData(id, name, servings, image, steps, ingredients);
+        return new RecipeData(id, name, servings, image, new ArrayList<>(steps), new ArrayList<>(ingredients));
     }
 }

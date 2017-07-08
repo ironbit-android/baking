@@ -49,13 +49,11 @@ public class WebRequestLoaderCallback implements LoaderManager.LoaderCallbacks<L
 
     @Override
     public void onLoadFinished(Loader<List> loader, List data) {
-        //listener.onRecipeListListener(data);
         observer.notifyListener(data);
     }
 
     @Override
     public void onLoaderReset(Loader<List> loader) {
-        //listener.onRecipeListListener(null);
         observer.notifyListener(null);
     }
 }
