@@ -100,6 +100,10 @@ public class RecipeActivity extends AppCompatActivity {
         isRecipeStepFragmentActive = value;
     }
 
+    public void setIndexRecipeStepFragment(int index) {
+        recipeStepIndex = index;
+    }
+
     public void updateIndexRecipeStepFragment(int index) {
         recipeStepIndex = index;
         RecipeStepFragment fragment = (RecipeStepFragment) fragmentMapper.get(FRAGMENT_RECIPE_STEPS_TAG);
@@ -107,7 +111,7 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     public void initPhoneView() {
-        ButterKnife.findById(this,R.id.activity_recipe_division).setVisibility(View.GONE);
+        ButterKnife.findById(this, R.id.activity_recipe_division).setVisibility(View.GONE);
         ButterKnife.findById(this, R.id.activity_recipe_framelayout_two).setVisibility(View.GONE);
     }
 
@@ -131,7 +135,7 @@ public class RecipeActivity extends AppCompatActivity {
         fragmentMapper.put(FRAGMENT_RECIPE_DETAIL_TAG, recipeDetailFragment);
     }
 
-    public void createRecipeStepFragment(int resource) {
+    public void createRecipeStepFragment(int resource, boolean navigabilityEnabled) {
         // query fragment
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentByTag(FRAGMENT_RECIPE_STEPS_TAG);
@@ -141,7 +145,7 @@ public class RecipeActivity extends AppCompatActivity {
         }
 
         // create fragment
-        RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(recipeParcelable);
+        RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(recipeParcelable, navigabilityEnabled);
 
         // register fragment
         manager.beginTransaction()

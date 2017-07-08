@@ -18,11 +18,11 @@ public class RecipeController implements BaseListener {
     public void executeInitLogic() {
         if (isTablet) {
             activity.createRecipeDetailFragment(R.id.activity_recipe_framelayout_one);
-            activity.createRecipeStepFragment(R.id.activity_recipe_framelayout_two);
+            activity.createRecipeStepFragment(R.id.activity_recipe_framelayout_two, false);
         } else {
             activity.initPhoneView();
             activity.createRecipeDetailFragment(R.id.activity_recipe_framelayout_one);
-            activity.createRecipeStepFragment(R.id.activity_recipe_framelayout_one);
+            activity.createRecipeStepFragment(R.id.activity_recipe_framelayout_one, true);
             if (activity.getIsRecipeStepFragmentActive()) {
                 activity.showFragment(activity.FRAGMENT_RECIPE_STEPS_TAG);
                 activity.hideFragment(activity.FRAGMENT_RECIPE_DETAIL_TAG);
