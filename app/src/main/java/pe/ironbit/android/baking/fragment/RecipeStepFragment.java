@@ -1,7 +1,9 @@
 package pe.ironbit.android.baking.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import pe.ironbit.android.baking.R;
 import pe.ironbit.android.baking.activity.RecipeActivity;
 import pe.ironbit.android.baking.model.recipe.RecipeData;
 import pe.ironbit.android.baking.model.recipe.RecipeParcelable;
+import pe.ironbit.android.baking.player.VideoPlayer;
+import pe.ironbit.android.baking.util.ConfigUtil;
 
 public class RecipeStepFragment extends Fragment {
     private int index = 0;
@@ -21,11 +25,16 @@ public class RecipeStepFragment extends Fragment {
 
     private RecipeData recipeData;
 
+    private VideoPlayer videoPlayer;
+
     private boolean navigabilityEnabled = true;
 
     private static final String RECIPE_DATA_KEY = "RECIPE_DATA_KEY";
 
     private static final String NAVIGABILITY_ENABLED_KEY = "NAVIGABILITY_ENABLED_KEY";
+
+    @BindView(R.id.fragment_recipe_step_player)
+    View exoPlayerView;
 
     @BindView(R.id.fragment_recipe_step_description)
     TextView stepDescription;
@@ -117,15 +126,37 @@ public class RecipeStepFragment extends Fragment {
             ButterKnife.findById(getView(), R.id.fragment_recipe_step_navigation_view).setVisibility(View.GONE);
         }
 
+        if (!ConfigUtil.isDeviceTablet(getContext()) && !ConfigUtil.isOrientationPortrait(getContext())) {
+            ((RecipeActivity) getActivity()).getSupportActionBar().hide();
+        }
+
         index = ((RecipeActivity)getActivity()).getRecipeStepIndex();
+
+        updateMediaSource();
 
         executeLogic();
         updateView();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        release();
+    }
+
+    public void release() {
+        if (videoPlayer != null) {
+            videoPlayer.release();
+        }
+    }
+
     public void updateRecipeStepIndex(int index) {
+        if (this.index == index) {
+            return;
+        }
         this.index = index;
 
+        updateMediaSource();
         executeLogic();
         updateView();
     }
@@ -160,35 +191,67 @@ public class RecipeStepFragment extends Fragment {
         }
     }
 
-    public void onClickNavigationInit() {
+    private void onClickNavigationInit() {
         if (index != 0) {
             index = 0;
             updateRecipeStepIndex(index);
             ((RecipeActivity)getActivity()).setIndexRecipeStepFragment(index);
+            updateMediaSource();
         }
     }
 
-    public void onClickNavigationPrevious() {
+    private void onClickNavigationPrevious() {
         if (index > 0) {
             index--;
             updateRecipeStepIndex(index);
             ((RecipeActivity)getActivity()).setIndexRecipeStepFragment(index);
+            updateMediaSource();
         }
     }
 
-    public void onClickNavigationNext() {
+    private void onClickNavigationNext() {
         if (index < (totalSteps - 1)) {
             index++;
             updateRecipeStepIndex(index);
             ((RecipeActivity)getActivity()).setIndexRecipeStepFragment(index);
+            updateMediaSource();
         }
     }
 
-    public void onClickNavigationFinal() {
+    private void onClickNavigationFinal() {
         if (index != (totalSteps - 1)) {
             index = totalSteps - 1;
             updateRecipeStepIndex(index);
             ((RecipeActivity)getActivity()).setIndexRecipeStepFragment(index);
+            updateMediaSource();
         }
     }
+
+    private void updateMediaSource() {
+        if (videoPlayer != null) {
+            videoPlayer.release();
+            videoPlayer = null;
+        }
+
+        {
+            String source = recipeData.getSteps().get(index).getVideoURL();
+            if (!TextUtils.isEmpty(source)) {
+                exoPlayerView.setVisibility(View.VISIBLE);
+
+                videoPlayer = new VideoPlayer(getContext(), Uri.parse(source), exoPlayerView);
+                return;
+            }
+        }
+        {
+            String source = recipeData.getSteps().get(index).getThumbnailURL();
+            if (!TextUtils.isEmpty(source)) {
+                exoPlayerView.setVisibility(View.VISIBLE);
+
+                videoPlayer = new VideoPlayer(getContext(), Uri.parse(source), exoPlayerView);
+                return;
+            }
+        }
+
+        exoPlayerView.setVisibility(View.GONE);
+   }
 }
