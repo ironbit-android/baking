@@ -173,8 +173,8 @@ public class RecipeActivity extends AppCompatActivity {
         if (fragment != null) {
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction()
-                    .hide(fragment)
-                    .commit();
+                   .hide(fragment)
+                   .commit();
         }
     }
 
@@ -183,8 +183,37 @@ public class RecipeActivity extends AppCompatActivity {
         if (fragment != null) {
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction()
-                    .show(fragment)
-                    .commit();
+                   .show(fragment)
+                   .commit();
         }
+    }
+
+    public void destroyAllFragments() {
+        Fragment fragment_recipe_steps = fragmentMapper.get(FRAGMENT_RECIPE_STEPS_TAG);
+        Fragment fragment_recipe_detail = fragmentMapper.get(FRAGMENT_RECIPE_DETAIL_TAG);
+
+        if ((fragment_recipe_steps != null) && (fragment_recipe_detail != null)) {
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction()
+                   .remove(fragment_recipe_steps)
+                   .remove(fragment_recipe_detail)
+                   .commitNow();
+
+            return;
+        }
+
+        destroyFragment(fragment_recipe_steps);
+        destroyFragment(fragment_recipe_detail);
+    }
+
+    private void destroyFragment(Fragment fragment) {
+        if (fragment == null) {
+            return;
+        }
+
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+               .remove(fragment)
+               .commitNow();
     }
 }

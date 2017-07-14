@@ -50,8 +50,7 @@ public class RecipeController implements BaseListener {
             activity.showFragment(activity.FRAGMENT_RECIPE_DETAIL_TAG);
             return false;
         }
-        activity.hideFragment(activity.FRAGMENT_RECIPE_STEPS_TAG);
-        activity.hideFragment(activity.FRAGMENT_RECIPE_DETAIL_TAG);
+        activity.destroyAllFragments();
         return true;
     }
 
