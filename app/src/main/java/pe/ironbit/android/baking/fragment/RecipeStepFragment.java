@@ -132,9 +132,6 @@ public class RecipeStepFragment extends Fragment {
 
         index = ((RecipeActivity)getActivity()).getRecipeStepIndex();
 
-        updateMediaSource();
-
-        executeLogic();
         updateView();
     }
 
@@ -150,18 +147,50 @@ public class RecipeStepFragment extends Fragment {
         }
     }
 
+    private void updateView() {
+        formatDescription();
+        updateMediaSource();
+        executeLogic();
+    }
+
     public void updateRecipeStepIndex(int index) {
         if (this.index == index) {
             return;
         }
         this.index = index;
 
-        updateMediaSource();
-        executeLogic();
         updateView();
     }
 
-    private void updateView() {
+    private void updateMediaSource() {
+        if (videoPlayer != null) {
+            videoPlayer.release();
+            videoPlayer = null;
+        }
+
+        {
+            String source = recipeData.getSteps().get(index).getVideoURL();
+            if (!TextUtils.isEmpty(source)) {
+                exoPlayerView.setVisibility(View.VISIBLE);
+
+                videoPlayer = new VideoPlayer(getContext(), Uri.parse(source), exoPlayerView);
+                return;
+            }
+        }
+        {
+            String source = recipeData.getSteps().get(index).getThumbnailURL();
+            if (!TextUtils.isEmpty(source)) {
+                exoPlayerView.setVisibility(View.VISIBLE);
+
+                videoPlayer = new VideoPlayer(getContext(), Uri.parse(source), exoPlayerView);
+                return;
+            }
+        }
+
+        exoPlayerView.setVisibility(View.GONE);
+    }
+
+    private void formatDescription() {
         View view = getView();
         if (view != null) {
             String description = recipeData.getSteps().get(index).getDescription();
@@ -194,64 +223,36 @@ public class RecipeStepFragment extends Fragment {
     private void onClickNavigationInit() {
         if (index != 0) {
             index = 0;
-            updateRecipeStepIndex(index);
+
             ((RecipeActivity)getActivity()).setIndexRecipeStepFragment(index);
-            updateMediaSource();
+            updateView();
         }
     }
 
     private void onClickNavigationPrevious() {
         if (index > 0) {
             index--;
-            updateRecipeStepIndex(index);
+
             ((RecipeActivity)getActivity()).setIndexRecipeStepFragment(index);
-            updateMediaSource();
+            updateView();
         }
     }
 
     private void onClickNavigationNext() {
         if (index < (totalSteps - 1)) {
             index++;
-            updateRecipeStepIndex(index);
+
             ((RecipeActivity)getActivity()).setIndexRecipeStepFragment(index);
-            updateMediaSource();
+            updateView();
         }
     }
 
     private void onClickNavigationFinal() {
         if (index != (totalSteps - 1)) {
             index = totalSteps - 1;
-            updateRecipeStepIndex(index);
+
             ((RecipeActivity)getActivity()).setIndexRecipeStepFragment(index);
-            updateMediaSource();
+            updateView();
         }
     }
-
-    private void updateMediaSource() {
-        if (videoPlayer != null) {
-            videoPlayer.release();
-            videoPlayer = null;
-        }
-
-        {
-            String source = recipeData.getSteps().get(index).getVideoURL();
-            if (!TextUtils.isEmpty(source)) {
-                exoPlayerView.setVisibility(View.VISIBLE);
-
-                videoPlayer = new VideoPlayer(getContext(), Uri.parse(source), exoPlayerView);
-                return;
-            }
-        }
-        {
-            String source = recipeData.getSteps().get(index).getThumbnailURL();
-            if (!TextUtils.isEmpty(source)) {
-                exoPlayerView.setVisibility(View.VISIBLE);
-
-                videoPlayer = new VideoPlayer(getContext(), Uri.parse(source), exoPlayerView);
-                return;
-            }
-        }
-
-        exoPlayerView.setVisibility(View.GONE);
-   }
 }
