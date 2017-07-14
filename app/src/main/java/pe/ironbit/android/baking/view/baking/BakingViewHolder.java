@@ -17,6 +17,7 @@ import pe.ironbit.android.baking.activity.RecipeActivity;
 import pe.ironbit.android.baking.contract.BakingContract;
 import pe.ironbit.android.baking.model.recipe.RecipeData;
 import pe.ironbit.android.baking.model.recipe.RecipeParcelable;
+import pe.ironbit.android.baking.widget.BakingWidgetIntentService;
 
 public class BakingViewHolder extends RecyclerView.ViewHolder {
     private Context context;
@@ -48,6 +49,8 @@ public class BakingViewHolder extends RecyclerView.ViewHolder {
                 RecipeParcelable recipeParcelable = new RecipeParcelable(recipeData);
                 intent.putExtra(BakingContract.BUNDLE_RECIPE_DATA_KEY, recipeParcelable);
                 context.startActivity(intent);
+
+                BakingWidgetIntentService.updateDataWidget(context, recipeData.getIngredients());
             }
         });
     }

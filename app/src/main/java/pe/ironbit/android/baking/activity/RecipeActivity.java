@@ -16,6 +16,7 @@ import pe.ironbit.android.baking.controller.RecipeController;
 import pe.ironbit.android.baking.fragment.RecipeDetailFragment;
 import pe.ironbit.android.baking.fragment.RecipeStepFragment;
 import pe.ironbit.android.baking.model.recipe.RecipeParcelable;
+import pe.ironbit.android.baking.widget.BakingWidgetIntentService;
 
 public class RecipeActivity extends AppCompatActivity {
     private RecipeController controller;
@@ -59,6 +60,18 @@ public class RecipeActivity extends AppCompatActivity {
         // create controller
         controller = new RecipeController(this);
         controller.executeInitLogic();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        BakingWidgetIntentService.updateWidget(getApplicationContext());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BakingWidgetIntentService.initWidget(getApplicationContext());
     }
 
     @Override
