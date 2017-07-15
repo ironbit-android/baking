@@ -34,7 +34,7 @@ public class RecipeStepViewHolder extends RecyclerView.ViewHolder {
     public void bind(int position, String description) {
         this.position = position;
 
-        recipeStepItem.setText(String.valueOf(position));
+        recipeStepItem.setText(String.valueOf(position + 1));
 
         recipeStepDescription.setText(description);
     }

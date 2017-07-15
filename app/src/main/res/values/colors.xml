@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="IND100">#C5CAE9</color>
+
+    <color name="RED100">#FFCDD2</color>
+
+    <color name="CYN100">#B2EBF2</color>
+
+    <color name="IND900">#1A237E</color>
+
+    <color name="BLU900">#0D47A1</color>
 </resources>

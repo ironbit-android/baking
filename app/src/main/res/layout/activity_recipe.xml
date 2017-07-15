@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/ActivityStyle"
     tools:context="pe.ironbit.android.baking.activity.RecipeActivity">
 
     <FrameLayout
@@ -15,9 +16,9 @@
 
     <View
         android:id="@+id/activity_recipe_division"
-        android:layout_width="5dp"
+        android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@android:color/black" />
+        android:background="@color/IND900" />
 
     <FrameLayout
         android:id="@+id/activity_recipe_framelayout_two"

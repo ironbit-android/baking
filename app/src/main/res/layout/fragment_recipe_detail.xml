@@ -6,13 +6,15 @@
     tools:context="pe.ironbit.android.baking.fragment.RecipeDetailFragment">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
+            style="@style/TitleRecyclerViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/list_cell_vertical_margin"
             android:text="@string/title_ingredients" />
 
         <android.support.v7.widget.RecyclerView
@@ -25,11 +27,15 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:layout_marginBottom="@dimen/list_cell_vertical_margin"
+            android:layout_marginTop="@dimen/list_cell_vertical_margin"
+            android:background="@color/IND900" />
 
         <TextView
+            style="@style/TitleRecyclerViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/list_cell_vertical_margin"
             android:text="@string/title_steps" />
 
         <android.support.v7.widget.RecyclerView
@@ -38,11 +44,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:scrollbars="none" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black" />
 
     </LinearLayout>
 

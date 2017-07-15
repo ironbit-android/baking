@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ActivityStyle">
+        <item name="android:layout_marginTop">@dimen/list_cell_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/list_cell_vertical_margin</item>
+        <item name="android:layout_marginLeft">@dimen/list_cell_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/list_cell_horizontal_margin</item>
+    </style>
+
+    <style name="TitleRecyclerViewStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

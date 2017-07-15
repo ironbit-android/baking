@@ -22,7 +22,10 @@
             android:id="@+id/fragment_recipe_step_description"
             android:layout_below="@id/fragment_recipe_step_player"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/step_description_margin"
+            android:layout_marginBottom="@dimen/step_description_margin"
+            android:textSize="18sp"/>
 
         <View
             android:layout_width="match_parent"
@@ -32,8 +35,10 @@
         <LinearLayout
             android:id="@+id/fragment_recipe_step_navigation_view"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/step_navigability_height"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/step_navigability_margin"
+            android:layout_marginBottom="@dimen/step_navigability_margin">
 
             <ImageView
                 android:id="@+id/fragment_recipe_step_navigation_init"
@@ -55,6 +60,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 tools:text="5/10"/>
 
             <ImageView

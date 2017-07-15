@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/recyclerview_recipe_height"
-    android:layout_marginLeft="@dimen/recyclerview_recipe_margin"
-    android:layout_marginRight="@dimen/recyclerview_recipe_margin">
+    android:layout_height="@dimen/list_cell_height">
 
     <TextView
         android:id="@+id/recyclerview_baking_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="@dimen/list_content_margin"
+        android:background="@drawable/drawable_baking_item"
+        android:gravity="center"
+        android:textSize="16sp"
         tools:text="1" />
 
+    <ImageView
+        android:id="@+id/recyclerview_baking_image"
+        android:layout_width="@dimen/list_image_size"
+        android:layout_height="@dimen/list_image_size"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/list_image_margin"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/image_pisco_sour" />
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/recyclerview_recipe_height"
+        android:id="@+id/recyclerview_baking_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/recyclerview_baking_image"
         android:layout_toRightOf="@id/recyclerview_baking_item"
         android:orientation="vertical">
 
@@ -23,8 +39,11 @@
             android:id="@+id/recyclerview_baking_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/list_content_division"
             android:layout_weight="1"
             android:gravity="bottom"
+            android:textSize="16sp"
+            android:textStyle="bold"
             tools:text="Pisco Sour" />
 
         <TextView
@@ -33,16 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="top"
+            android:textSize="16sp"
             tools:text="4" />
+
     </LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/recyclerview_baking_image"
-        android:layout_width="@dimen/recipe_image_size"
-        android:layout_height="@dimen/recipe_image_size"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/image_pisco_sour" />
 </RelativeLayout>

@@ -27,7 +27,7 @@ public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredie
     @Override
     public void onBindViewHolder(RecipeIngredientViewHolder holder, int position) {
         IngredientData data = list.get(position);
-        holder.bind(data, String.valueOf(position));
+        holder.bind(data, String.valueOf(position + 1));
     }
 
     @Override
