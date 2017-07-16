@@ -119,6 +119,18 @@ public class RecipeStepFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        videoPlayer.initialize();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        videoPlayer.release();
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -133,18 +145,6 @@ public class RecipeStepFragment extends Fragment {
         index = ((RecipeActivity)getActivity()).getRecipeStepIndex();
 
         updateView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        release();
-    }
-
-    public void release() {
-        if (videoPlayer != null) {
-            videoPlayer.release();
-        }
     }
 
     private void updateView() {

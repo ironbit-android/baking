@@ -24,29 +24,36 @@ import com.google.android.exoplayer2.util.Util;
 public class VideoPlayer {
     private Context context;
 
+    private Uri uri;
+
+    private View view;
+
     private SimpleExoPlayer exoPlayer;
 
     private SimpleExoPlayerView exoPlayerView;
 
-    private DataSource.Factory dataSourceFactory;
-
-    private ExtractorsFactory extractorsFactory;
-
     public VideoPlayer(Context context, Uri uri, View view) {
         this.context = context;
+        this.uri = uri;
+        this.view = view;
 
-        createVideoPlayer();
-
-        exoPlayerView = (SimpleExoPlayerView) view;
-        exoPlayerView.setPlayer(exoPlayer);
-
-        prepareMediaSource(uri);
+        setPlayerView(view);
+        initialize();
     }
 
     public void release() {
-        exoPlayer.stop();
-        exoPlayer.release();
-        exoPlayer = null;
+        if (exoPlayer != null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+            exoPlayer = null;
+        }
+    }
+
+    public void initialize() {
+        if (exoPlayer == null) {
+            createVideoPlayer();
+            prepareMediaSource(uri);
+        }
     }
 
     private void createVideoPlayer() {
@@ -57,13 +64,18 @@ public class VideoPlayer {
                 new DefaultTrackSelector(videoTrackSelectionFactory);
 
         exoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
+        exoPlayerView.setPlayer(exoPlayer);
+    }
+
+    private void setPlayerView(View view) {
+        exoPlayerView = (SimpleExoPlayerView) view;
     }
 
     private void prepareMediaSource(Uri uri) {
         String userAgent = Util.getUserAgent(context, VideoPlayer.class.getSimpleName());
 
-        extractorsFactory = new DefaultExtractorsFactory();
-        dataSourceFactory = new DefaultDataSourceFactory(context, userAgent);
+        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context, userAgent);
 
         MediaSource mediaSource = new ExtractorMediaSource(uri, dataSourceFactory, extractorsFactory, null, null);
         exoPlayer.prepare(mediaSource);
