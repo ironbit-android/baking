@@ -1,10 +1,14 @@
 package pe.ironbit.android.baking.activity;
 
 import android.app.LoaderManager;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.List;
 
@@ -62,6 +66,16 @@ public class BakingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baking);
+
+        // verify network connection
+        if (!verifyInternetConnection()) {
+            View textView = ButterKnife.findById(this, R.id.activity_baking_message);
+            textView.setVisibility(View.VISIBLE);
+
+            View recyclerView = ButterKnife.findById(this, R.id.activity_baking_recyclerview);
+            recyclerView.setVisibility(View.GONE);
+            return;
+        }
 
         // init objects interactions.
         initEventObjects();
@@ -127,5 +141,16 @@ public class BakingActivity extends AppCompatActivity {
         LoaderManager.LoaderCallbacks<List> loader = new WebRequestLoaderCallback(this, factory, observer);
 
         getLoaderManager().initLoader(WebRequestLoaderContract.WEB_REQUEST_RECIPE_LOADER, null, loader).forceLoad();
+    }
+
+    /**
+     * Verify network connection.
+     * @return true is there is a network connection.
+     */
+    private boolean verifyInternetConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return (networkInfo != null) && (networkInfo.isConnectedOrConnecting());
     }
 }

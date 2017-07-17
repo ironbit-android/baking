@@ -17,5 +17,8 @@
 
     <!-- Widget -->
     <string name="widget_no_recipe">Choose a Recipe in order to get the Ingredients</string>
+
+    <!-- Baking Activity -->
+    <string name="baking_no_internet_connection">There is an issue with the internet connection.</string>
 </resources>
 
