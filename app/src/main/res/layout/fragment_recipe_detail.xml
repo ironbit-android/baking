@@ -1,50 +1,44 @@
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="pe.ironbit.android.baking.fragment.RecipeDetailFragment">
 
-    <LinearLayout
+    <TextView
+        style="@style/TitleRecyclerViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_cell_vertical_margin"
+        android:text="@string/title_ingredients" />
 
-        <TextView
-            style="@style/TitleRecyclerViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/list_cell_vertical_margin"
-            android:text="@string/title_ingredients" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_recipe_detail_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_recipe_detail_ingredients"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scrollbars="none" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/list_cell_vertical_margin"
+        android:layout_marginTop="@dimen/list_cell_vertical_margin"
+        android:background="@color/IND900" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/list_cell_vertical_margin"
-            android:layout_marginTop="@dimen/list_cell_vertical_margin"
-            android:background="@color/IND900" />
+    <TextView
+        style="@style/TitleRecyclerViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_cell_vertical_margin"
+        android:text="@string/title_steps" />
 
-        <TextView
-            style="@style/TitleRecyclerViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/list_cell_vertical_margin"
-            android:text="@string/title_steps" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_recipe_detail_steps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_recipe_detail_steps"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scrollbars="none" />
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

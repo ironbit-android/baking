@@ -1,6 +1,8 @@
 package pe.ironbit.android.baking.fragment;
 
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +21,15 @@ import pe.ironbit.android.baking.view.step.RecipeStepAdapter;
 public class RecipeDetailFragment extends Fragment {
     private RecipeParcelable recipeParcelable;
 
+    private RecyclerView recyclerViewRecipeSteps;
+
+    private RecyclerView recyclerViewRecipeIngredients;
+
     private static final String RECIPE_DATA_KEY = "RECIPE_DATA_KEY";
+
+    private static final String RECYCLER_VIEW_RECIPE_STEPS_KEY = "RECYCLER_VIEW_RECIPE_STEPS_KEY";
+
+    private static final String RECYCLER_VIEW_RECIPE_INGREDIENTS_KEY = "RECYCLER_VIEW_RECIPE_INGREDIENTS_KEY";
 
     public RecipeDetailFragment() {
     }
@@ -45,6 +55,17 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Parcelable stepsParcelable = recyclerViewRecipeSteps.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(RECYCLER_VIEW_RECIPE_STEPS_KEY, stepsParcelable);
+
+        Parcelable ingredientsParcelable = recyclerViewRecipeIngredients.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(RECYCLER_VIEW_RECIPE_INGREDIENTS_KEY, ingredientsParcelable);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
@@ -55,29 +76,42 @@ public class RecipeDetailFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            Parcelable stepsParcelable = savedInstanceState.getParcelable(RECYCLER_VIEW_RECIPE_STEPS_KEY);
+            recyclerViewRecipeSteps.getLayoutManager().onRestoreInstanceState(stepsParcelable);
+
+            Parcelable ingredientsParcelable = savedInstanceState.getParcelable(RECYCLER_VIEW_RECIPE_INGREDIENTS_KEY);
+            recyclerViewRecipeIngredients.getLayoutManager().onRestoreInstanceState(ingredientsParcelable);
+        }
+    }
+
     private void initRecyclerViewRecipeSteps(View view) {
-        RecyclerView recyclerView = ButterKnife.findById(view, R.id.fragment_recipe_detail_steps);
+        recyclerViewRecipeSteps = ButterKnife.findById(view, R.id.fragment_recipe_detail_steps);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerViewRecipeSteps.setLayoutManager(layoutManager);
 
         RecipeController controller = ((RecipeActivity)getActivity()).getRecipeController();
 
         RecipeStepAdapter adapter = new RecipeStepAdapter(controller);
         adapter.setList(recipeParcelable.getRecipeData().getSteps());
 
-        recyclerView.setAdapter(adapter);
+        recyclerViewRecipeSteps.setAdapter(adapter);
     }
 
     private void initRecyclerViewRecipeIngredients(View view) {
-        RecyclerView recyclerView = ButterKnife.findById(view, R.id.fragment_recipe_detail_ingredients);
+        recyclerViewRecipeIngredients = ButterKnife.findById(view, R.id.fragment_recipe_detail_ingredients);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerViewRecipeIngredients.setLayoutManager(layoutManager);
 
         RecipeIngredientAdapter adapter = new RecipeIngredientAdapter();
         adapter.setList(recipeParcelable.getRecipeData().getIngredients());
 
-        recyclerView.setAdapter(adapter);
+        recyclerViewRecipeIngredients.setAdapter(adapter);
     }
 }
