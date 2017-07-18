@@ -36,6 +36,10 @@ public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredie
     }
 
     public void setList(List<IngredientData> list) {
+        if (list == null) {
+            return;
+        }
+
         this.list = list;
         notifyDataSetChanged();
     }

@@ -4,6 +4,9 @@
     <!-- Web Resource | Recipe List -->
     <string name="web_resource_recipe_list">https://go.udacity.com/android-baking-app-json</string>
 
+    <!-- Testing resource -->
+    <!--<string name="web_resource_recipe_list">https://go.udacity.com/android-baking-app1-json</string>-->
+
     <!-- Recipe Activity | Titles -->
     <string name="activity_recipe_label">Recipes</string>
 

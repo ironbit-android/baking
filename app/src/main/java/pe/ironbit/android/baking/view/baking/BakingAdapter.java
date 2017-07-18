@@ -45,6 +45,10 @@ public class BakingAdapter extends RecyclerView.Adapter<BakingViewHolder>
 
     @Override
     public void update(Object object) {
+        if ((object == null) || !(object instanceof List)) {
+            return;
+        }
+
         this.list = (List<RecipeData>)object;
         notifyDataSetChanged();
     }

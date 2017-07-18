@@ -46,6 +46,10 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecipeStepViewHolder
     }
 
     public void setList(List<StepData> list) {
+        if (list == null) {
+            return;
+        }
+
         this.list = list;
         notifyDataSetChanged();
     }
