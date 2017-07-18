@@ -24,11 +24,11 @@ public class RecipeController implements BaseListener {
             activity.createRecipeDetailFragment(R.id.activity_recipe_framelayout_one);
             activity.createRecipeStepFragment(R.id.activity_recipe_framelayout_one, true);
             if (activity.getIsRecipeStepFragmentActive()) {
-                activity.showFragment(activity.FRAGMENT_RECIPE_STEPS_TAG);
-                activity.hideFragment(activity.FRAGMENT_RECIPE_DETAIL_TAG);
+                activity.showFragment(RecipeActivity.FRAGMENT_RECIPE_STEPS_TAG);
+                activity.hideFragment(RecipeActivity.FRAGMENT_RECIPE_DETAIL_TAG);
             } else {
-                activity.hideFragment(activity.FRAGMENT_RECIPE_STEPS_TAG);
-                activity.showFragment(activity.FRAGMENT_RECIPE_DETAIL_TAG);
+                activity.hideFragment(RecipeActivity.FRAGMENT_RECIPE_STEPS_TAG);
+                activity.showFragment(RecipeActivity.FRAGMENT_RECIPE_DETAIL_TAG);
             }
         }
     }
@@ -36,18 +36,18 @@ public class RecipeController implements BaseListener {
     private void executeStepLogic(int index) {
         activity.updateIndexRecipeStepFragment(index);
 
-        if (isTablet == false) {
+        if (!isTablet) {
             activity.setIsRecipeStepFragmentActive(true);
-            activity.showFragment(activity.FRAGMENT_RECIPE_STEPS_TAG);
-            activity.hideFragment(activity.FRAGMENT_RECIPE_DETAIL_TAG);
+            activity.showFragment(RecipeActivity.FRAGMENT_RECIPE_STEPS_TAG);
+            activity.hideFragment(RecipeActivity.FRAGMENT_RECIPE_DETAIL_TAG);
         }
     }
 
     public boolean executeLogicBack() {
         if (activity.getIsRecipeStepFragmentActive()) {
             activity.setIsRecipeStepFragmentActive(false);
-            activity.hideFragment(activity.FRAGMENT_RECIPE_STEPS_TAG);
-            activity.showFragment(activity.FRAGMENT_RECIPE_DETAIL_TAG);
+            activity.hideFragment(RecipeActivity.FRAGMENT_RECIPE_STEPS_TAG);
+            activity.showFragment(RecipeActivity.FRAGMENT_RECIPE_DETAIL_TAG);
             return false;
         }
         activity.destroyAllFragments();
