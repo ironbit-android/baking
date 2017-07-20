@@ -16,9 +16,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_recipe_detail_ingredients"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:scrollbars="none" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -37,8 +36,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_recipe_detail_steps"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:scrollbars="none" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.ExoPlayer;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pe.ironbit.android.baking.R;
@@ -121,13 +123,17 @@ public class RecipeStepFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        videoPlayer.initialize();
+        if (videoPlayer != null) {
+            videoPlayer.initialize();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        videoPlayer.release();
+        if (videoPlayer != null) {
+            videoPlayer.release();
+        }
     }
 
     @Override
@@ -145,6 +151,12 @@ public class RecipeStepFragment extends Fragment {
         index = ((RecipeActivity)getActivity()).getRecipeStepIndex();
 
         updateView();
+    }
+
+    public void setVideoPlayerEventListener(ExoPlayer.EventListener listener) {
+        if (videoPlayer != null) {
+            videoPlayer.setVideoPlayerEventListener(listener);
+        }
     }
 
     private void updateView() {

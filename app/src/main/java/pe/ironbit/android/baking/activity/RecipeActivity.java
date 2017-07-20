@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.google.android.exoplayer2.ExoPlayer;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ import pe.ironbit.android.baking.widget.BakingWidgetIntentService;
 public class RecipeActivity extends AppCompatActivity {
     private RecipeController controller;
 
-    Map<String, Fragment> fragmentMapper;
+    private Map<String, Fragment> fragmentMapper;
 
     private int recipeStepIndex = 0;
 
@@ -115,6 +117,14 @@ public class RecipeActivity extends AppCompatActivity {
 
     public void setIndexRecipeStepFragment(int index) {
         recipeStepIndex = index;
+    }
+
+    public void setVideoPlayerEventListener(ExoPlayer.EventListener listener) {
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment fragment = manager.findFragmentByTag(FRAGMENT_RECIPE_STEPS_TAG);
+        if (fragment != null) {
+            ((RecipeStepFragment) fragment).setVideoPlayerEventListener(listener);
+        }
     }
 
     public void updateIndexRecipeStepFragment(int index) {

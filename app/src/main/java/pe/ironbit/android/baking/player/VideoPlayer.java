@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.view.View;
 
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -53,6 +54,12 @@ public class VideoPlayer {
         if (exoPlayer == null) {
             createVideoPlayer();
             prepareMediaSource(uri);
+        }
+    }
+
+    public void setVideoPlayerEventListener(ExoPlayer.EventListener listener) {
+        if (exoPlayer != null) {
+            exoPlayer.addListener(listener);
         }
     }
 
